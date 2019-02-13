@@ -3,7 +3,7 @@ import { MoveDirection } from '../../maze-game/models/move-direction'
 
 export class MazeMove {
     consecutiveMove: MoveDirection;
-    moveHistoryCount: number = 0;
+    consecutiveMoveCount: number = 0;
 
     constructor(public point: MazePoint, public direction: MoveDirection) {
         this.consecutiveMove = direction;

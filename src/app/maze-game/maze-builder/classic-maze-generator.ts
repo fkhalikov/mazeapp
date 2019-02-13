@@ -6,13 +6,9 @@ import { MoveDirection } from "../maze-game/models/move-direction";
 import { MazePoint } from "../maze-game/models/maze-point";
 import { MazeMoveDirectionHelperService } from "src/app/services/maze-move-direction-helper.service";
 
-declare var $: any;
-declare var Math: any;
-
 export class ClassicMazeGenerator implements IMazeGenerator {
   constructor(private options: MazeBuilderOptions) {}
 
-  moves: any[] = [];
   visitedPoints: any = {};
 
   create(): Maze {
@@ -49,7 +45,7 @@ export class ClassicMazeGenerator implements IMazeGenerator {
 
       let nextPoint: MazePoint = MazeMove.NextPoint(move);
 
-      if (this.canGo(nextPoint) && move.moveHistoryCount < 3) {
+      if (this.canGo(nextPoint) && move.consecutiveMoveCount < 3) {
         
           this.visitedPoints[nextPoint.toString()] = true;
 
@@ -106,7 +102,7 @@ export class ClassicMazeGenerator implements IMazeGenerator {
         let newMove = new MazeMove(newPoint, d);
 
         if (d == lastMove.consecutiveMove) {
-          newMove.moveHistoryCount = lastMove.moveHistoryCount + 1;
+          newMove.consecutiveMoveCount = lastMove.consecutiveMoveCount + 1;
         }
 
         newMoves.push(newMove);
@@ -128,10 +124,6 @@ export class ClassicMazeGenerator implements IMazeGenerator {
 
   hasBeenHere(point: MazePoint) {
     return this.visitedPoints[point.toString()] === true;
-  }
-
-  last(array: []) {
-    return array[array.length - 1];
   }
 
   defineEntryAndExitPoints(maze: Maze) {

@@ -4,14 +4,10 @@ import { MazePoint } from "../maze-game/models/maze-point";
 import { MazeSolverResult } from "./maze-solver-result";
 import { CloneService } from 'src/app/services/clone.service';
 
-declare var $: any;
-
 export class MazeGameSolver {
   constructor(private mazeGame: MazeGame, private cloneService: CloneService) {}
 
   solve(): void {
-    this.mazeGame.restart();
-
     const player = this.mazeGame.player;
 
     let route: MoveDirection[];
@@ -147,7 +143,7 @@ export class MazeGameSolver {
     ) {
       outRoute.push(moveDirection);
 
-      routePoints["p" + newDirection.y + "_" + newDirection.x] = true;
+      routePoints[newDirection.toString()] = true;
 
       if (this.mazeGame.hasReachedExit(newDirection.y, newDirection.x)) {
         result.found = true;
@@ -179,6 +175,6 @@ export class MazeGameSolver {
   }
 
   haveIBeenThere(position: MazePoint, routePoints: any) {
-    return routePoints["p" + position.y + "_" + position.x] === true;
+    return routePoints[position.toString()] === true;
   }
 }

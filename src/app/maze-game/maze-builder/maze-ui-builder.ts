@@ -1,5 +1,5 @@
-import { MazeBuilderOptions } from './maze-builder-options';
-import { Maze } from '../maze';
+import { MazeBuilderOptions } from "./maze-builder-options";
+import { Maze } from "../maze";
 
 declare var $: any;
 
@@ -29,8 +29,7 @@ export class MazeUIBuilder {
                                         left:${j * cellSize -
                                           (j > 0 ? 1 : 0)}px;height:${
           showWall === 1 ? cellSize : 0
-        }px;'
-                                    class="maze-cell vertical-line"></div>`;
+        }px;' class="maze-cell vertical-line"></div>`;
 
         $(mazeContainer).append(newDiv);
       }
@@ -44,8 +43,7 @@ export class MazeUIBuilder {
                 style='top:${i * cellSize - (i > 0 ? 1 : 0)}px;
                     left:${j * cellSize - (j > 0 ? 1 : 0)}px;width:${
           showWall === 1 ? cellSize : 0
-        }px'
-                class="maze-cell horizontal-line"></div>`;
+        }px' class="maze-cell horizontal-line"></div>`;
 
         $(mazeContainer).append(newDiv);
       }

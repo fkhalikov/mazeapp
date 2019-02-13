@@ -1,4 +1,4 @@
 export enum MazeWallType {
-   Horizontal
-   , Vertical
+  Horizontal,
+  Vertical
 }
