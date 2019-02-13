@@ -1,10 +1,10 @@
 import { MazeBuilderOptions } from "./maze-builder-options";
 import { Maze } from "../maze";
-import { IMazeGenerator } from './maze-generator.interface';
-import { MazeMove } from './models/maze-move';
-import { MoveDirection } from '../maze-game/models/move-direction';
-import { MazePoint } from '../maze-game/models/maze-point';
-import { MazeMoveDirectionHelperService } from 'src/app/services/maze-move-direction-helper.service';
+import { IMazeGenerator } from "./maze-generator.interface";
+import { MazeMove } from "./models/maze-move";
+import { MoveDirection } from "../maze-game/models/move-direction";
+import { MazePoint } from "../maze-game/models/maze-point";
+import { MazeMoveDirectionHelperService } from "src/app/services/maze-move-direction-helper.service";
 
 declare var $: any;
 declare var Math: any;
@@ -25,7 +25,10 @@ export class ClassicMazeGenerator implements IMazeGenerator {
     this.defineEntryAndExitPoints(maze);
     this.createOuterMazeWalls(maze);
 
-    let moves: MazeMove[] = this.getNewMoves(maze.entrance, MoveDirection.None);
+    let moves: MazeMove[] = this.getNewMoves(
+      maze.entrance,
+      new MazeMove(maze.entrance, MoveDirection.None)
+    );
 
     this.visitedPoints = {};
     this.visitedPoints[maze.entrance.toString()] = true;
@@ -46,12 +49,14 @@ export class ClassicMazeGenerator implements IMazeGenerator {
 
       let nextPoint: MazePoint = MazeMove.NextPoint(move);
 
-      if (this.canGo(nextPoint)) {
-        this.visitedPoints[nextPoint.toString()] = true;
+      if (this.canGo(nextPoint) && move.moveHistoryCount < 3) {
+        
+          this.visitedPoints[nextPoint.toString()] = true;
 
-        let nextPointMoves = this.getNewMoves(nextPoint, move.direction);
+          let nextPointMoves = this.getNewMoves(nextPoint, move);
 
-        nextPointMoves.forEach(m => newMoves.push(m));
+          nextPointMoves.forEach(m => newMoves.push(m));
+        
       } else if (this.isAtExit(maze, nextPoint)) {
         // skip
       } else {
@@ -87,16 +92,24 @@ export class ClassicMazeGenerator implements IMazeGenerator {
     }
   }
 
-  getNewMoves(newPoint: MazePoint, lastMove: MoveDirection): MazeMove[] {
+  getNewMoves(newPoint: MazePoint, lastMove: MazeMove): MazeMove[] {
     let newMoves: MazeMove[] = [];
 
     let possibleDirections = MazeMoveDirectionHelperService.get();
 
-    let backDirection = MazeMoveDirectionHelperService.opposite(lastMove);
+    let backDirection = MazeMoveDirectionHelperService.opposite(
+      lastMove.direction
+    );
 
     possibleDirections.forEach((d, i) => {
       if (d != backDirection) {
-        newMoves.push(new MazeMove(newPoint, d));
+        let newMove = new MazeMove(newPoint, d);
+
+        if (d == lastMove.consecutiveMove) {
+          newMove.moveHistoryCount = lastMove.moveHistoryCount + 1;
+        }
+
+        newMoves.push(newMove);
       }
     });
 
