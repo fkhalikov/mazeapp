@@ -15,7 +15,7 @@ Open docker terminal and navigate to the root directory of the code.
 
 Run following commands:
 
-`docker build -t something-clever .`
+`docker build -t mazeapp .`
 
 ## Development server
 
