@@ -1,5 +1,10 @@
 # MazeApp
 
+Directly available at the following link:
+https://m5rrl408rx.codesandbox.io/
+
+Or alternatively follow these intructions.
+
 # Prerequisites
 
 Latest version of nodejs
