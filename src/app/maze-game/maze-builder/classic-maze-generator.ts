@@ -1,11 +1,10 @@
-import { MazeBuilderOptions } from "src/app/maze-game/maze-builder/maze-builder-options";
-import { Maze } from "src/app/maze-game/maze";
-import { MazePoint } from "src/app/maze-game/maze-game/models/maze-point";
-import { MoveDirection } from "../maze-game/models/move-direction";
-import { CloneService } from "src/app/services/clone.service";
-import { MazeMove } from "./models/maze-move";
-import { IMazeGenerator } from "./maze-generator.interface";
-import { MazeMoveDirectionHelperService } from "src/app/services/maze-move-direction-helper.service";
+import { MazeBuilderOptions } from "./maze-builder-options";
+import { Maze } from "../maze";
+import { IMazeGenerator } from './maze-generator.interface';
+import { MazeMove } from './models/maze-move';
+import { MoveDirection } from '../maze-game/models/move-direction';
+import { MazePoint } from '../maze-game/models/maze-point';
+import { MazeMoveDirectionHelperService } from 'src/app/services/maze-move-direction-helper.service';
 
 declare var $: any;
 declare var Math: any;
@@ -39,7 +38,6 @@ export class ClassicMazeGenerator implements IMazeGenerator {
   build(maze: Maze, moves: MazeMove[]) {
     let newMoves = [];
 
-
     while (moves.length > 0) {
       let moveIndex = Math.floor(Math.random() * moves.length);
 
@@ -47,19 +45,18 @@ export class ClassicMazeGenerator implements IMazeGenerator {
       moves.splice(moveIndex, 1);
 
       let nextPoint: MazePoint = MazeMove.NextPoint(move);
-     
-        if (this.canGo(nextPoint)) {
-          this.visitedPoints[nextPoint.toString()] = true;
 
-          let nextPointMoves = this.getNewMoves(nextPoint, move.direction);
+      if (this.canGo(nextPoint)) {
+        this.visitedPoints[nextPoint.toString()] = true;
 
-          nextPointMoves.forEach(m => newMoves.push(m));
-        } else if (this.isAtExit(maze, nextPoint)) {
-          // skip
-        } else {
-          this.makeAWall(maze, move);
-        }
-      
+        let nextPointMoves = this.getNewMoves(nextPoint, move.direction);
+
+        nextPointMoves.forEach(m => newMoves.push(m));
+      } else if (this.isAtExit(maze, nextPoint)) {
+        // skip
+      } else {
+        this.makeAWall(maze, move);
+      }
     }
 
     if (newMoves.length > 0) {

@@ -1,11 +1,7 @@
-import { MazeBuilderOptions } from 'src/app/maze-game/maze-builder/maze-builder-options';
-import { Maze } from 'src/app/maze-game/maze';
-import { MazePoint } from 'src/app/maze-game/maze-game/models/maze-point';
-import { IMazeGenerator } from 'src/app/maze-game/maze-builder/maze-generator.interface';
-
-
-declare var $: any;
-declare var Math: any;
+import { IMazeGenerator } from './maze-generator.interface';
+import { MazeBuilderOptions } from './maze-builder-options';
+import { Maze } from '../maze';
+import { MazePoint } from '../maze-game/models/maze-point';
 
 export class WallzyMazeGenerator implements IMazeGenerator {
 

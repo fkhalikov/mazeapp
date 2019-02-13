@@ -1,7 +1,5 @@
-﻿import { IMazeGameObject } from 'src/app/maze-game/maze-game/models/maze-game-object';
-import { MazePoint } from 'src/app/maze-game/maze-game/models/maze-point';
-
-
+﻿import { IMazeGameObject } from './maze-game-object';
+import { MazePoint } from './maze-point';
 
 export class MazePlayer implements IMazeGameObject {
 

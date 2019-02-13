@@ -1,9 +1,9 @@
-﻿import { MazePlayer } from "src/app/maze-game/maze-game/models/maze-player";
-import { Maze } from "src/app/maze-game/maze";
-import { MazePoint } from "src/app/maze-game/maze-game/models/maze-point";
-import { IMazeGameObject } from "src/app/maze-game/maze-game/models/maze-game-object";
-import { MoveDirection } from "src/app/maze-game/maze-game/models/move-direction";
-import { MazeWallType } from "src/app/maze-game/maze-game/models/maze-wall-type";
+﻿import { MazePlayer } from './maze-game/models/maze-player';
+import { Maze } from './maze';
+import { IMazeGameObject } from './maze-game/models/maze-game-object';
+import { MoveDirection } from './maze-game/models/move-direction';
+import { MazeWallType } from './maze-game/models/maze-wall-type';
+import { MazePoint } from './maze-game/models/maze-point';
 
 declare var $: any;
 

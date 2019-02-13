@@ -1,4 +1,4 @@
-import { Maze } from 'src/app/maze-game/maze';
+import { Maze } from '../maze';
 
 export interface IMazeGenerator {
   create(): Maze;

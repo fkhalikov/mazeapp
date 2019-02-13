@@ -1,5 +1,5 @@
-import { MazeBuilderOptions } from "src/app/maze-game/maze-builder/maze-builder-options";
-import { Maze } from "src/app/maze-game/maze";
+import { MazeBuilderOptions } from './maze-builder-options';
+import { Maze } from '../maze';
 
 declare var $: any;
 

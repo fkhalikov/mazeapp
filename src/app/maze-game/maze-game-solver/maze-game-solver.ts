@@ -1,18 +1,13 @@
-import { MazeGame } from "src/app/maze-game/maze-game";
-import { MoveDirection } from "src/app/maze-game/maze-game/models/move-direction";
-import { MazeSolverResult } from "src/app/maze-game/maze-game-solver/maze-solver-result";
-import { MazePoint } from "src/app/maze-game/maze-game/models/maze-point";
-import { Subscriber } from "rxjs/internal/Subscriber";
-import { checkAndUpdatePureExpressionDynamic } from "@angular/core/src/view/pure_expression";
+import { MazeGame } from "../maze-game";
+import { MoveDirection } from "../maze-game/models/move-direction";
+import { MazePoint } from "../maze-game/models/maze-point";
+import { MazeSolverResult } from "./maze-solver-result";
 import { CloneService } from 'src/app/services/clone.service';
 
 declare var $: any;
 
 export class MazeGameSolver {
-  constructor(private mazeGame: MazeGame
-            , private cloneService: CloneService) {
-
-  }
+  constructor(private mazeGame: MazeGame, private cloneService: CloneService) {}
 
   solve(): void {
     this.mazeGame.restart();
@@ -23,7 +18,7 @@ export class MazeGameSolver {
     route = [];
 
     const solverResult = this.findRoute(
-      this.mazeGame.player.position,
+      player.position,
       route,
       MoveDirection.None,
       {}

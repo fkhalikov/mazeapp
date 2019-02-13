@@ -1,14 +1,12 @@
-﻿import { MazeGame } from 'src/app/maze-game/maze-game';
-import { MazeBuilderOptions } from 'src/app/maze-game/maze-builder/maze-builder-options';
-import { MazeUIBuilder } from 'src/app/maze-game/maze-builder/maze-ui-builder';
-import { MazeGameSolver } from 'src/app/maze-game/maze-game-solver/maze-game-solver';
-import { IMazeGenerator } from 'src/app/maze-game/maze-builder/maze-generator.interface';
-import { WallzyMazeGenerator } from 'src/app/maze-game/maze-builder/wallzy-maze-generator';
-import { CloneService } from '../services/clone.service';
+﻿import { CloneService } from '../services/clone.service';
+import { MazeGame } from './maze-game';
+import { MazeBuilderOptions } from './maze-builder/maze-builder-options';
+import { MazeUIBuilder } from './maze-builder/maze-ui-builder';
+import { IMazeGenerator } from './maze-builder/maze-generator.interface';
 import { ClassicMazeGenerator } from './maze-builder/classic-maze-generator';
+import { MazeGameSolver } from './maze-game-solver/maze-game-solver';
 
 declare var $: any;
-declare var Number: any;
 
 export class MazeApp {
     mazeGame: MazeGame = null;

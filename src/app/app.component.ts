@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { MazeApp } from 'src/app/maze-game/maze-app';
+import { MazeApp } from './maze-game/maze-app';
 
 @Component({
   selector: 'app-root',

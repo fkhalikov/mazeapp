@@ -1,11 +1,10 @@
-﻿import { MazeBuilderOptions } from "src/app/maze-game/maze-builder/maze-builder-options";
-import { MazePoint } from "src/app/maze-game/maze-game/models/maze-point";
-import { MazePlayer } from "src/app/maze-game/maze-game/models/maze-player";
-import { IMazeGameObject } from "src/app/maze-game/maze-game/models/maze-game-object";
-import { MazeWallType } from "src/app/maze-game/maze-game/models/maze-wall-type";
+﻿import { MazeBuilderOptions } from './maze-builder/maze-builder-options';
+import { MazePoint } from './maze-game/models/maze-point';
+import { MazePlayer } from './maze-game/models/maze-player';
+import { IMazeGameObject } from './maze-game/models/maze-game-object';
+import { MazeWallType } from './maze-game/models/maze-wall-type';
 
 declare var $: any;
-declare var Math: any;
 
 export class Maze extends MazeBuilderOptions {
   mazeContainer: any;
