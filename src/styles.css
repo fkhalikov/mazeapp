@@ -1,0 +1,37 @@
+.controls {
+    margin-left:25px;
+    margin-top:10px;
+}
+
+.mazecontainer {
+  margin-top:10px;
+  margin-bottom:200px;
+  position: relative;
+}
+
+.maze-player {
+  background-color: lime;
+  position: absolute;
+}
+
+.maze-cell {
+  position: absolute;
+}
+
+.vertical-line {
+  background-color: black;
+  width: 1px;
+}
+
+.horizontal-line {
+  background-color: black;
+  height: 1px;
+}
+
+.wall-breaker-button {
+  width: 80px;
+}
+
+.controls-td {
+  vertical-align: top;
+}
