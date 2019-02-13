@@ -13,27 +13,27 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "./dist/maze-app",
-            "index": "./src/index.html",
-            "main": "./src/main.ts",
-            "polyfills": "./src/polyfills.ts",
-            "tsConfig": "./src/tsconfig.app.json",
+            "outputPath": "dist/maze-app",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "./src/favicon.ico",
-              "./src/assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
-              "./src/styles.css"
+              "src/styles.css"
             ],
-            "scripts": ["./lib/jquery.min.js"],
+            "scripts": ["lib/jquery.min.js"],
             "es5BrowserSupport": true
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "./src/environments/environment.ts",
-                  "with": "./src/environments/environment.prod.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -52,7 +52,7 @@
                   "maximumError": "5mb"
                 }
               ],
-              "outputPath": "./dist-iis/maze-app"
+              "outputPath": "dist-iis/maze-app"
             }
           }
         },
@@ -76,17 +76,17 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "./src/test.ts",
-            "polyfills": "./src/polyfills.ts",
-            "tsConfig": "./src/tsconfig.spec.json",
-            "karmaConfig": "./src/karma.conf.js",
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "./src/styles.css"
+              "src/styles.css"
             ],
             "scripts": [],
             "assets": [
-              "./src/favicon.ico",
-              "./src/assets"
+              "src/favicon.ico",
+              "src/assets"
             ]
           }
         },
@@ -94,8 +94,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "./src/tsconfig.app.json",
-              "./src/tsconfig.spec.json"
+              "src/tsconfig.app.json",
+              "src/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -112,7 +112,7 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "./e2e/protractor.conf.js",
+            "protractorConfig": "e2e/protractor.conf.js",
             "devServerTarget": "maze-app:serve"
           },
           "configurations": {
@@ -124,7 +124,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": "./e2e/tsconfig.e2e.json",
+            "tsConfig": "e2e/tsconfig.e2e.json",
             "exclude": [
               "**/node_modules/**"
             ]
