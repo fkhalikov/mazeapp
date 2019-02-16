@@ -26,8 +26,8 @@ export class Maze extends MazeBuilderOptions {
     this.mazeContainer = $("#" + mazecontainerdiv);
   }
 
-  addPlayer(name: string): MazePlayer {
-    const mazePlayer: MazePlayer = new MazePlayer(name, this.cellsizepx - 10);
+  addPlayer(name: string, color?: string): MazePlayer {
+    const mazePlayer: MazePlayer = new MazePlayer(name, this.cellsizepx - 10, color);
     this.mazeContainer.append(mazePlayer.getDefinition());
     this.mazeObjects[mazePlayer.id] = $("#" + mazePlayer.id);
     mazePlayer.position = new MazePoint(this.entrance.x, this.entrance.y);

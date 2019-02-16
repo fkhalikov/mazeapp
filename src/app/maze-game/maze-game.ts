@@ -9,11 +9,13 @@ declare var $: any;
 
 export class MazeGame {
   player: MazePlayer;
+  player2: MazePlayer;
 
   constructor(private maze: Maze) {}
 
   initPlayer(name: string): void {
-    this.player = this.maze.addPlayer("player1");
+    this.player = this.maze.addPlayer("player1", "lime");
+    this.player2 = this.maze.addPlayer("player2", "purple");
   }
 
   moveDown(mazeObject: IMazeGameObject, breakTheWall: boolean = false) {
