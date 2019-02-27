@@ -1,20 +1,23 @@
-import { MazeGame } from "../maze-game";
+import { MazeGame } from "../maze-game/maze-game.component";
 import { MoveDirection } from "../maze-game/models/move-direction";
 import { MazePoint } from "../maze-game/models/maze-point";
 import { MazeSolverResult } from "./maze-solver-result";
-import { CloneService } from 'src/app/services/clone.service';
+import { CloneService } from "src/app/services/clone.service";
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class MazeGameSolver {
-  constructor(private mazeGame: MazeGame, private cloneService: CloneService) {}
+  constructor(private cloneService: CloneService) {}
 
-  solve(): void {
-    const player = this.mazeGame.player;
+  solve(mazeGame: MazeGame): void {
+    const player = mazeGame.player;
 
     let route: MoveDirection[];
     route = [];
 
     const solverResult = this.findRoute(
-      player.position,
+      mazeGame,
+      player.getPosition(),
       route,
       MoveDirection.None,
       {}
@@ -26,23 +29,23 @@ export class MazeGameSolver {
         setTimeout(() => {
           switch (solverResult.route[pos]) {
             case MoveDirection.Down:
-              self.mazeGame.moveDown(self.mazeGame.player);
+              mazeGame.moveDown();
               break;
             case MoveDirection.Up:
-              self.mazeGame.moveUp(self.mazeGame.player);
+              mazeGame.moveUp();
               break;
             case MoveDirection.Left:
-              self.mazeGame.moveLeft(self.mazeGame.player);
+              mazeGame.moveLeft();
               break;
             case MoveDirection.Right:
-              self.mazeGame.moveRight(self.mazeGame.player);
+              mazeGame.moveRight();
               break;
           }
 
           if (pos < solverResult.route.length - 1) {
             autoSolveDel(++pos);
           }
-        }, 200);
+        }, 222);
       };
       autoSolveDel(0);
     } else {
@@ -51,6 +54,7 @@ export class MazeGameSolver {
   }
 
   findRoute(
+    mazeGame: MazeGame,
     point: MazePoint,
     outRoute: MoveDirection[],
     previousMove: MoveDirection,
@@ -58,6 +62,7 @@ export class MazeGameSolver {
   ): MazeSolverResult {
     if (previousMove !== MoveDirection.Up) {
       const checkResult = this.checkDirection(
+        mazeGame,
         point,
         MoveDirection.Down,
         outRoute.splice(0),
@@ -71,6 +76,7 @@ export class MazeGameSolver {
 
     if (previousMove !== MoveDirection.Down) {
       const checkResult = this.checkDirection(
+        mazeGame,
         point,
         MoveDirection.Up,
         outRoute.splice(0),
@@ -84,6 +90,7 @@ export class MazeGameSolver {
 
     if (previousMove !== MoveDirection.Right) {
       const checkResult = this.checkDirection(
+        mazeGame,
         point,
         MoveDirection.Left,
         outRoute.splice(0),
@@ -97,6 +104,7 @@ export class MazeGameSolver {
 
     if (previousMove !== MoveDirection.Left) {
       const checkResult = this.checkDirection(
+        mazeGame,
         point,
         MoveDirection.Right,
         outRoute.splice(0),
@@ -112,6 +120,7 @@ export class MazeGameSolver {
   }
 
   checkDirection(
+    mazeGame: MazeGame,
     point: MazePoint,
     moveDirection: MoveDirection,
     outRoute: MoveDirection[],
@@ -138,19 +147,20 @@ export class MazeGameSolver {
     }
 
     if (
-      this.mazeGame.canGo(point, moveDirection) &&
+      mazeGame.canGo(point, moveDirection) &&
       this.haveIBeenThere(newDirection, routePoints) === false
     ) {
       outRoute.push(moveDirection);
 
       routePoints[newDirection.toString()] = true;
 
-      if (this.mazeGame.hasReachedExit(newDirection.y, newDirection.x)) {
+      if (mazeGame.hasReachedExit(newDirection.y, newDirection.x)) {
         result.found = true;
         result.route = outRoute;
         return result;
       } else {
         const subSearch = this.findRoute(
+          mazeGame,
           newDirection,
           [],
           moveDirection,

@@ -1,17 +1,14 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { MazeApp } from './maze-game/maze-app';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { MazeApp } from './maze-game/maze-app/maze-app.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent {
   
-  ngAfterViewInit(): void {
-    const mazeApp = new MazeApp();
-  }
-
+ 
   title = 'maze-app';
 
   constructor() {

@@ -1,0 +1,30 @@
+﻿<table>
+  <tr>
+   
+    <td class="controls-td">
+      <div class="controls">
+        Select maze size
+        <select id="selectsize"  (change)="selectedSizeChanged($event.target.value)">
+          <option ngValue="10" selected>10</option>
+          <option ngValue="15">15</option>
+          <option ngValue="20">20</option>
+          <option ngValue="25">25</option>
+          <option ngValue="30">30</option>
+          <option ngValue="40">40</option>
+          <option ngValue="50">50</option>
+        </select>
+
+        <button (click)="GenerateNew()">Generate New</button>
+        <button (click)="SolveMaze()">Solve</button>
+
+        <div>
+          Swipe on mobile OR Use arrow keys on the keyboard to navigate
+          <img src="assets/arrowkeys.png" class="imagearrowkeys" />
+        </div>
+      </div>
+    </td>
+  </tr>
+  <tr>
+      <td><maze-game></maze-game></td>
+  </tr>
+</table>

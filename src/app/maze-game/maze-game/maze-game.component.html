@@ -1,0 +1,35 @@
+﻿<div
+  class="mazecontainer"
+  [style.width.px]="cellSize * size"
+  [style.height.px]="cellSize * size"
+>
+  <maze-player [cellSize]="cellSize" color="lime"></maze-player>
+
+  <div id="maze" *ngIf="maze !== undefined">
+    <div *ngFor="let line of verticalWalls; let i = index">
+      <div
+        class="maze-cell"
+        *ngFor="let wall of line; let j = index"
+        style="width:1px;"
+        [style.height.px]="cellSize"
+        [style.top.px]="i * cellSize"
+        [style.left.px]="j * cellSize"
+        [style.background-color]="wall == 1 ? 'black' : 'white'"
+      ></div>
+    </div>
+  </div>
+
+  <div id="maze" *ngIf="maze !== undefined">
+    <div *ngFor="let line of horizontalWalls; let i = index">
+      <div
+        class="maze-cell"
+        *ngFor="let wall of line; let j = index"
+        style="height:1px;"
+        [style.width.px]="cellSize"
+        [style.top.px]="i * cellSize"
+        [style.left.px]="j * cellSize"
+        [style.background-color]="wall == 1 ? 'black' : 'white'"
+      ></div>
+    </div>
+  </div>
+</div>

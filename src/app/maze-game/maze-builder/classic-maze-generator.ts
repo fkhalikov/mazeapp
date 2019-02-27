@@ -15,7 +15,6 @@ export class ClassicMazeGenerator implements IMazeGenerator {
     let maze = new Maze(
       this.options.size,
       this.options.cellsizepx,
-      this.options.containerDivId
     );
 
     this.defineEntryAndExitPoints(maze);
