@@ -1,6 +1,6 @@
 ﻿import { CloneService } from "../../services/clone.service";
 import { MazeGame } from "../maze-game/maze-game.component";
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, HostListener } from '@angular/core';
 
 
 @Component({
@@ -17,29 +17,34 @@ export class MazeApp implements AfterViewInit {
   
   }
 
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+       switch (event.keyCode) {
+          case 37: // left
+            this.mazeGame.moveLeft();
+            break;
+
+          case 38: // up
+            this.mazeGame.moveUp();
+            break;
+
+          case 39: // right
+            this.mazeGame.moveRight();
+            break;
+
+          case 40: // down
+            this.mazeGame.moveDown();
+            break;
+       }
+  }
+
   ngAfterViewInit() {
   
       this.GenerateNew();
 
 
       
-        // switch (e.which) {
-        //   case 37: // left
-        //     this.mazeGame.moveLeft(this.mazeGame.player);
-        //     break;
-
-        //   case 38: // up
-        //     this.mazeGame.moveUp(this.mazeGame.player);
-        //     break;
-
-        //   case 39: // right
-        //     this.mazeGame.moveRight(this.mazeGame.player);
-        //     break;
-
-        //   case 40: // down
-        //     this.mazeGame.moveDown(this.mazeGame.player);
-        //     break;
-
+      
    
    
   }

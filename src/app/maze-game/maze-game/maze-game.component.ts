@@ -115,4 +115,8 @@ export class MazeGame {
     this.mazeSolver.solve(this);
     
   }
+
+  onSwipe(event) {
+    console.log(event);
+  }
 }
