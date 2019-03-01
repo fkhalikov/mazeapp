@@ -9,7 +9,11 @@ import { Injectable } from '@angular/core';
 export class MazeGameSolver {
   constructor(private cloneService: CloneService) {}
 
+  private terminate: boolean;
+  private lastTimeoutInstance: any;
+
   solve(mazeGame: MazeGame): void {
+    this.terminate = false;
     const player = mazeGame.player;
 
     let route: MoveDirection[];
@@ -22,11 +26,11 @@ export class MazeGameSolver {
       MoveDirection.None,
       {}
     );
-    if (solverResult.found) {
-      const self = this;
 
+    if (solverResult.found) {
+      let self = this;
       let autoSolveDel = function(pos) {
-        setTimeout(() => {
+        self.lastTimeoutInstance = setTimeout(() => {
           switch (solverResult.route[pos]) {
             case MoveDirection.Down:
               mazeGame.moveDown();
@@ -42,10 +46,11 @@ export class MazeGameSolver {
               break;
           }
 
-          if (pos < solverResult.route.length - 1) {
+          if (pos < solverResult.route.length - 1
+            && self.terminate == false) {
             autoSolveDel(++pos);
           }
-        }, 222);
+        }, 50);
       };
       autoSolveDel(0);
     } else {
@@ -186,5 +191,13 @@ export class MazeGameSolver {
 
   haveIBeenThere(position: MazePoint, routePoints: any) {
     return routePoints[position.toString()] === true;
+  }
+
+  stop() {
+      this.terminate = true;
+      if (this.lastTimeoutInstance) {
+        clearTimeout(this.lastTimeoutInstance);
+        this.lastTimeoutInstance = undefined;
+      }
   }
 }

@@ -1,10 +1,12 @@
-﻿<div  (swipeleft)="moveLeft()"
-(swiperight)="moveRight()"
-(swipeup)="moveUp()"
-(swipedown)="moveDown()"
+﻿<div
+  (swipeleft)="moveLeft()"
+  (swiperight)="moveRight()"
+  (swipeup)="moveUp()"
+  (swipedown)="moveDown()"
   class="mazecontainer"
   [style.width.px]="cellSize * size"
-  [style.height.px]="cellSize * size">
+  [style.height.px]="cellSize * size"
+>
   <maze-player [cellSize]="cellSize" color="lime"></maze-player>
 
   <div id="maze" *ngIf="maze !== undefined">
@@ -16,7 +18,7 @@
         [style.height.px]="cellSize"
         [style.top.px]="i * cellSize"
         [style.left.px]="j * cellSize"
-        [style.background-color]="wall == 1 ? 'black' : 'white'"
+        [style.background-color]="wall == 1 ? 'black' : ''"
       ></div>
     </div>
   </div>
@@ -30,7 +32,7 @@
         [style.width.px]="cellSize"
         [style.top.px]="i * cellSize"
         [style.left.px]="j * cellSize"
-        [style.background-color]="wall == 1 ? 'black' : 'white'"
+        [style.background-color]="wall == 1 ? 'black' : ''"
       ></div>
     </div>
   </div>

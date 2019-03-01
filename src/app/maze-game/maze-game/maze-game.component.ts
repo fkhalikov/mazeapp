@@ -1,7 +1,7 @@
 ﻿import { Maze } from "../maze";
 import { MoveDirection } from "./models/move-direction";
 import { MazePoint } from "./models/maze-point";
-import { Component, ViewChild, ElementRef, Input, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import { Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
 import { MazeBuilderOptions } from "../maze-builder/maze-builder-options";
 import { IMazeGenerator } from "../maze-builder/maze-generator.interface";
 import { ClassicMazeGenerator } from "../maze-builder/classic-maze-generator";
@@ -22,8 +22,7 @@ export class MazeGame {
   size:number = 10;
   verticalWalls: any[];
   horizontalWalls: any[];
-  constructor(private mazeSolver: MazeGameSolver
-    , private changeDetector: ChangeDetectorRef
+  constructor(private changeDetector: ChangeDetectorRef
     , private randomService: RandomService) {}
 
   moveDown() {
@@ -89,7 +88,7 @@ export class MazeGame {
   }
 
   restart() {
-    //this.maze.positionObjectByPoint(this.player, this.maze.entrance);
+    
   }
 
   hasReachedExit(y: number, x: number) {
@@ -110,15 +109,5 @@ export class MazeGame {
     this.changeDetector.detectChanges();
 
     this.player.SetPosition(this.maze.entrance.Copy());
-  }
-
-  solve() {
-   
-    this.mazeSolver.solve(this);
-    
-  }
-
-  onSwipe(event) {
-    console.log(event);
   }
 }
