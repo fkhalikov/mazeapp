@@ -1,13 +1,17 @@
 ﻿import { Maze } from "../maze";
 import { MoveDirection } from "./models/move-direction";
 import { MazePoint } from "./models/maze-point";
-import { Component, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from "@angular/core";
+import {
+  Component,
+  ViewChild,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from "@angular/core";
 import { MazeBuilderOptions } from "../maze-builder/maze-builder-options";
 import { IMazeGenerator } from "../maze-builder/maze-generator.interface";
 import { ClassicMazeGenerator } from "../maze-builder/classic-maze-generator";
-import { MazeGameSolver } from "../maze-game-solver/maze-game-solver";
 import { MazePlayerComponent } from "../maze-player/maze-player.component";
-import { RandomService } from 'src/app/services/random.service';
+import { RandomService } from "../../services/random.service";
 
 @Component({
   selector: "maze-game",
@@ -19,11 +23,13 @@ export class MazeGame {
 
   maze: Maze;
   cellSize: number = 20;
-  size:number = 10;
+  size: number = 10;
   verticalWalls: any[];
   horizontalWalls: any[];
-  constructor(private changeDetector: ChangeDetectorRef
-    , private randomService: RandomService) {}
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private randomService: RandomService
+  ) {}
 
   moveDown() {
     if (this.canGo(this.player.getPosition(), MoveDirection.Down)) {
@@ -87,9 +93,7 @@ export class MazeGame {
     }
   }
 
-  restart() {
-    
-  }
+  restart() {}
 
   hasReachedExit(y: number, x: number) {
     return x === this.maze.exit.x && y === this.maze.exit.y;
@@ -98,10 +102,13 @@ export class MazeGame {
   createNew(size: number) {
     const mazeOptions = new MazeBuilderOptions(size, this.cellSize);
 
-    const mazeGenerator: IMazeGenerator = new ClassicMazeGenerator(mazeOptions, this.randomService);
+    const mazeGenerator: IMazeGenerator = new ClassicMazeGenerator(
+      mazeOptions,
+      this.randomService
+    );
 
     this.maze = mazeGenerator.create();
-  
+
     this.size = size;
 
     this.verticalWalls = this.maze.mazeVerticalwalls;

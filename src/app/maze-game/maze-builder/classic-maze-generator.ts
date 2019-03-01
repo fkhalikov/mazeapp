@@ -4,9 +4,9 @@ import { IMazeGenerator } from "./maze-generator.interface";
 import { MazeMove } from "./models/maze-move";
 import { MoveDirection } from "../maze-game/models/move-direction";
 import { MazePoint } from "../maze-game/models/maze-point";
-import { MazeMoveDirectionHelperService } from "src/app/services/maze-move-direction-helper.service";
+import { MazeMoveDirectionHelperService } from "../../services/maze-move-direction-helper.service";
 import { MoveState } from "./models/move-state";
-import { RandomService } from "src/app/services/random.service";
+import { RandomService } from "../../services/random.service";
 
 export class ClassicMazeGenerator implements IMazeGenerator {
   constructor(
