@@ -94,8 +94,6 @@ export class MazeGame {
     }
   }
 
-  restart() {}
-
   hasReachedExit(y: number, x: number) {
     return x === this.maze.exit.x && y === this.maze.exit.y;
   }
