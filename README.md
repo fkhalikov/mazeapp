@@ -1,7 +1,7 @@
 # MazeApp
 
 Directly available at the following link:
-https://m5rrl408rx.codesandbox.io/
+https://ryz3061wnq.codesandbox.io/
 
 Or alternatively follow these intructions.
 
