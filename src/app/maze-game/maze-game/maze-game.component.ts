@@ -7,6 +7,7 @@ import { IMazeGenerator } from "../maze-builder/maze-generator.interface";
 import { ClassicMazeGenerator } from "../maze-builder/classic-maze-generator";
 import { MazeGameSolver } from "../maze-game-solver/maze-game-solver";
 import { MazePlayerComponent } from "../maze-player/maze-player.component";
+import { RandomService } from 'src/app/services/random.service';
 
 @Component({
   selector: "maze-game",
@@ -22,7 +23,8 @@ export class MazeGame {
   verticalWalls: any[];
   horizontalWalls: any[];
   constructor(private mazeSolver: MazeGameSolver
-    , private changeDetector: ChangeDetectorRef) {}
+    , private changeDetector: ChangeDetectorRef
+    , private randomService: RandomService) {}
 
   moveDown() {
     if (this.canGo(this.player.getPosition(), MoveDirection.Down)) {
@@ -97,7 +99,7 @@ export class MazeGame {
   createNew(size: number) {
     const mazeOptions = new MazeBuilderOptions(size, this.cellSize);
 
-    const mazeGenerator: IMazeGenerator = new ClassicMazeGenerator(mazeOptions);
+    const mazeGenerator: IMazeGenerator = new ClassicMazeGenerator(mazeOptions, this.randomService);
 
     this.maze = mazeGenerator.create();
   

@@ -5,62 +5,73 @@ import { MazeMove } from "./models/maze-move";
 import { MoveDirection } from "../maze-game/models/move-direction";
 import { MazePoint } from "../maze-game/models/maze-point";
 import { MazeMoveDirectionHelperService } from "src/app/services/maze-move-direction-helper.service";
+import { MoveState } from "./models/move-state";
+import { RandomService } from "src/app/services/random.service";
 
 export class ClassicMazeGenerator implements IMazeGenerator {
-  constructor(private options: MazeBuilderOptions) {}
+  constructor(
+    private options: MazeBuilderOptions,
+    private randomService: RandomService
+  ) {}
 
   visitedPoints: any = {};
 
   create(): Maze {
-    let maze = new Maze(
-      this.options.size,
-      this.options.cellsizepx,
-    );
+    let maze = new Maze(this.options.size, this.options.cellsizepx);
 
     this.defineEntryAndExitPoints(maze);
     this.createOuterMazeWalls(maze);
 
-    let moves: MazeMove[] = this.getNewMoves(
-      maze.entrance,
-      new MazeMove(maze.entrance, MoveDirection.None)
-    );
+    let move: MazeMove = new MazeMove(maze.entrance, MoveDirection.None);
 
     this.visitedPoints = {};
     this.visitedPoints[maze.entrance.toString()] = true;
 
-    this.build(maze, moves);
+    this.build(maze, move);
 
     return maze;
   }
 
-  build(maze: Maze, moves: MazeMove[]) {
-    let newMoves = [];
+  build(maze: Maze, mazeMove: MazeMove): MoveState {
+    let nextPoint: MazePoint = MazeMove.NextPoint(mazeMove);
 
-    while (moves.length > 0) {
-      let moveIndex = Math.floor(Math.random() * moves.length);
+    if (this.isAtExit(maze, nextPoint)) {
+      return MoveState.IsAtExit;
+    } else if (
+      this.canGo(nextPoint) ||
+      mazeMove.direction == MoveDirection.None
+    ) {
+      this.visitedPoints[nextPoint.toString()] = true;
 
-      let move: MazeMove = moves[moveIndex];
-      moves.splice(moveIndex, 1);
+      let blockedMoves = {};
 
-      let nextPoint: MazePoint = MazeMove.NextPoint(move);
-
-      if (this.canGo(nextPoint) && move.consecutiveMoveCount < 3) {
-        
-          this.visitedPoints[nextPoint.toString()] = true;
-
-          let nextPointMoves = this.getNewMoves(nextPoint, move);
-
-          nextPointMoves.forEach(m => newMoves.push(m));
-        
-      } else if (this.isAtExit(maze, nextPoint)) {
-        // skip
-      } else {
-        this.makeAWall(maze, move);
+      if (mazeMove.direction != MoveDirection.None) {
+        blockedMoves[
+          MazeMoveDirectionHelperService.opposite(mazeMove.direction)
+        ] = true;
       }
-    }
 
-    if (newMoves.length > 0) {
-      this.build(maze, newMoves);
+      let nextMove: MazeMove = this.getNewMove(nextPoint, blockedMoves);
+
+      let foundExit = false;
+
+      while (nextMove.direction != MoveDirection.None) {
+        if (this.build(maze, nextMove) == MoveState.IsAtExit) {
+          foundExit = true;
+        }
+
+        blockedMoves[nextMove.direction] = true;
+        nextMove = this.getNewMove(nextPoint, blockedMoves);
+      }
+
+      if (foundExit) {
+        return MoveState.IsAtExit;
+      } else {
+        return MoveState.NoWay;
+      }
+    } else {
+      this.makeAWall(maze, mazeMove);
+      return MoveState.NoWay;
     }
   }
 
@@ -87,28 +98,34 @@ export class ClassicMazeGenerator implements IMazeGenerator {
     }
   }
 
-  getNewMoves(newPoint: MazePoint, lastMove: MazeMove): MazeMove[] {
-    let newMoves: MazeMove[] = [];
-
+  getNewMove(newPoint: MazePoint, blockedMoves: any): MazeMove {
     let possibleDirections = MazeMoveDirectionHelperService.get();
 
-    let backDirection = MazeMoveDirectionHelperService.opposite(
-      lastMove.direction
-    );
+    let moveOptionCount =
+      possibleDirections.length - Object.keys(blockedMoves).length;
 
-    possibleDirections.forEach((d, i) => {
-      if (d != backDirection) {
-        let newMove = new MazeMove(newPoint, d);
+    if (moveOptionCount == 0) {
+      return new MazeMove(newPoint, MoveDirection.None);
+    }
 
-        if (d == lastMove.consecutiveMove) {
-          newMove.consecutiveMoveCount = lastMove.consecutiveMoveCount + 1;
+    let rndDirection = this.randomService.randomInt(moveOptionCount);
+    let i = 0;
+
+    let mazeMove = null;
+
+    possibleDirections.forEach(d => {
+      if (blockedMoves[d]) {
+        //skip
+      } else {
+        if (i == rndDirection) {
+          mazeMove = new MazeMove(newPoint, d);
         }
 
-        newMoves.push(newMove);
+        i++;
       }
     });
 
-    return newMoves;
+    return mazeMove;
   }
 
   isOutSideBounds(point: MazePoint) {

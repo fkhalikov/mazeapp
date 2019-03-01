@@ -10,7 +10,7 @@ import { Component, AfterViewInit, ViewChild, HostListener } from '@angular/core
 export class MazeApp implements AfterViewInit {
   @ViewChild(MazeGame) mazeGame: MazeGame;
 
-  selectedSize: number = 10;
+  selectedSize: number = 33;
 
   constructor(private cloneService: CloneService
     ) {
@@ -42,11 +42,6 @@ export class MazeApp implements AfterViewInit {
   
       this.GenerateNew();
 
-
-      
-      
-   
-   
   }
 
   GenerateNew() {
