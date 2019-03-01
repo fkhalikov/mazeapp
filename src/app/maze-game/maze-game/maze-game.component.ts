@@ -20,7 +20,7 @@ import { RandomService } from "../../services/random.service";
 })
 export class MazeGame {
   @ViewChild(MazePlayerComponent) player: MazePlayerComponent;
-
+  
   maze: Maze;
   cellSize: number = 20;
   size: number = 10;
@@ -31,6 +31,7 @@ export class MazeGame {
     private randomService: RandomService
   ) {}
 
+ 
   moveDown() {
     if (this.canGo(this.player.getPosition(), MoveDirection.Down)) {
       this.player.SetY(++this.player.y);
